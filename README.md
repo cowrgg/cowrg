@@ -1,76 +1,62 @@
-# G2Ray
+# Base44 Project
 
-> Only works in places where you can open GitHub Codespaces
+Use this repository to run and edit the app locally, then publish changes back through Base44.
 
-## ⚠️ Important Notice
+Any change pushed to the repo will also be reflected in the Base44 Builder.
 
-**Please read this before using this project:**
+## Prerequisites
 
-This project creates and runs a V2Ray proxy server. While the intention is for legitimate use, **we strongly recommend using a separate GitHub account (not your main account) when forking and running this project**, as GitHub may restrict accounts that violate its terms of service.
+1. Clone the repository using the project's Git URL.
+2. Navigate to the project directory.
+3. Install dependencies: `npm install`.
+4. Install the Base44 CLI: `npm install -g base44@latest`.
+5. Install [Deno](https://docs.deno.com/runtime/getting_started/installation/) — the local Base44 backend runs on it.
 
-## Overview
+Run `base44 --help` (or see the [CLI reference](https://docs.base44.com/developers/references/cli/commands/introduction)) for the full command surface.
 
-G2Ray is an automated setup for running a VLESS proxy through GitHub Codespaces. It provides a quick way to set up your own proxy server for accessing content from restricted regions.
+## Run Locally
 
-## Setup
+Three commands, from the project root:
 
-1. **Create or use a secondary GitHub account** (highly recommended)
-2. Fork the repository to your account
-3. Click the green **"Code"** button above
-4. Go to the **"Codespaces"** tab
-5. Click **"Create codespace on main"**
-6. Wait for the setup to complete (usually 2-5 minutes)
+```bash
+base44 login   # one-time per machine
+base44 link    # one-time per clone
+base44 dev     # local backend + frontend together
+```
 
-## How to Use
+Open the frontend URL that `base44 dev` prints (typically `http://localhost:5173`).
 
-1. **Wait for Codespace initialization** - The setup process takes a few minutes. All dependencies and configurations will be installed automatically.
+Notes:
 
-2. **Get your VLESS link** - Once ready, your VLESS proxy link will be printed directly in the terminal
+- **Every fresh clone needs `base44 link`.** It writes `base44/.app.jsonc` (the app-id pointer), which is deliberately gitignored. Your app id is in the Builder URL (`app.base44.com/apps/<id>/...`); `base44 link --help` shows the non-interactive flags.
+- **`base44 dev` runs the frontend for you** (via `site.serveCommand` in this repo's `base44/config.jsonc`) — never run `npm run dev` yourself: alone it serves a UI with no backend behind it (`[base44] Proxy not enabled`, every `/api` call fails), and alongside `base44 dev` the second Vite silently takes the next port and you end up looking at the wrong one.
+- **The app must be published at least once for the UI to load under `base44 dev`.** The frontend boots by fetching app settings from the hosted app; before the first publish that fails and every page redirects to login. The local API works regardless.
+- Entities, functions, and auth run locally — entity data is **in-memory only**, wiped when `base44 dev` restarts. Everything else (Core integrations, OAuth login) is forwarded to your deployed app. Full breakdown: [Local development overview](https://docs.base44.com/developers/backend/overview/local-dev/local-development-overview).
 
-   ![Terminal Screenshot](./docs/screenshot.png)
+## Frontend Only, Hosted Backend
 
-3. **Import the link** - Copy the generated VLESS link and import it into:
-   - V2RayNG (Android)
-   - Clash Meta
-   - Or any other proxy application that supports VLESS
+To work on just the frontend against your app's live hosted backend:
 
-## Important Notes
+```bash
+base44 dev --remote
+```
 
-### GitHub Codespaces Quota
-- GitHub provides **120 free compute hours per month** (per core)
-- For a 2-core Codespace: 120 ÷ 2 = 60 hours/month
-- **Stop your Codespace when not in use** to preserve your hours
-- You can always restart it later when needed
+⚠️ In this mode writes go to your app's **production data** — plain `base44 dev` keeps everything local.
 
-### Compatible Networks
-Tested on Shecan (free plan). If these IPs work for you, the proxy should be functional:
-- `63.141.252.203`
-- `50.7.5.83`
-- `94.130.50.12`
+## Publish Your Changes
 
-If these IPs don't work, try different datacenters or ISPs from your region.
+After pushing your changes to git, open the Base44 dashboard and publish the app:
 
-### Troubleshooting
-- If the Codespace fails to start, try creating a new one
-- Check that your GitHub account has Codespaces enabled
-- Ensure you have enough compute hours remaining for the month
-- For network issues, try switching proxy protocols in your client app
+```bash
+base44 dashboard open
+```
 
-## Support the Project
+This repo syncs to Base44 through git, so publish from the dashboard rather than `base44 deploy` — a CLI deploy ships your local tree directly, bypassing the sync, and the deployed state silently diverges from the repo.
 
-If you find this project useful, consider supporting its development:
+## Docs & Support
 
-### Cryptocurrency Donations
-- **Bitcoin**: `bc1qdwdpeqv0l8ala8tm46rtfeghuxl70een84npj3`
-- **Ethereum**: `0x695CCF873d51E4C2dC1321b405C63BFE99c5a536`
-- **Solana**: `C2d9u9nY2hZfxsi5Fwz1o5VjGGQujWmxeqZ3upKvHBfD`
-- **TON Coin**: `UQAjStDMoMUusqRAuQGZ0Qbc2Th45yUUMdKlbhQ_6aS2TWlD`
-- [Buy me a coffee ☕](https://www.buymeacoffee.com/amiremohamadi) (donate to the main REPO, he made it happen)
+GitHub integration: [https://docs.base44.com/developers/app-code/local-development/github](https://docs.base44.com/developers/app-code/local-development/github)
 
-## Disclaimer
+Local development: [https://docs.base44.com/developers/backend/overview/local-dev/local-development-overview](https://docs.base44.com/developers/backend/overview/local-dev/local-development-overview)
 
-This tool is provided for educational and legitimate use only. Users are responsible for complying with their local laws and regulations regarding proxy usage. The author is not responsible for any misuse or legal consequences arising from the use of this tool.
-
-## License
-
-This project is open-source. Please check the LICENSE file for details.
+Support: [https://app.base44.com/support](https://app.base44.com/support)
