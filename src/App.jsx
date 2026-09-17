@@ -15,6 +15,8 @@ import Cart from '@/pages/Cart';
 import Checkout from '@/pages/Checkout';
 import OrderSuccess from '@/pages/OrderSuccess';
 import Admin from '@/pages/Admin';
+import Articles from '@/pages/Articles';
+import ArticleDetail from '@/pages/ArticleDetail';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -52,6 +54,8 @@ const AuthenticatedApp = () => {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/order-success/:id" element={<OrderSuccess />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/articles" element={<Articles />} />
+          <Route path="/articles/:id" element={<ArticleDetail />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>

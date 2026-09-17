@@ -12,8 +12,8 @@ export default function Footer() {
               <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold">ی</span>
               <span className="font-heading text-lg font-bold">یاس صفا</span>
             </div>
-            <p className="mt-4 max-w-xs text-sm leading-7 text-muted-foreground">
-              تولیدکننده سوهان اصیل قم و انواع شیرینی‌های سنتی با بهترین مواد اولیه و دست‌پخت خانگی. ارسال به سراسر کشور.
+            <p className="mt-4 max-w-xs text-sm leading-7 text-muted-foreground [font-family:'Vazirmatn',_ui-sans-serif,_system-ui,_sans-serif]">تولیدکننده سوهان اصیل قم و انواع شیرینی‌های سنتی با بهترین مواد اولیه و بیش از چهل سال تجربه 
+ارسال به سراسر کشور
             </p>
           </div>
 
@@ -30,9 +30,9 @@ export default function Footer() {
           <div id="contact">
             <h4 className="font-heading text-sm font-bold">تماس با ما</h4>
             <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
-              <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-primary" /> ۰۲۱-۱۲۳۴۵۶۷۸</li>
-              <li className="flex items-center gap-2"><Instagram className="h-4 w-4 text-primary" /> @yas_safa</li>
-              <li className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 text-primary" /> قم، خیابان ارم، بازار سنتی</li>
+              <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-primary" /> ۰۲۵۳-۸۸۷۵۳۷۹</li>
+              <li className="flex items-center gap-2"><Instagram className="h-4 w-4 text-primary" /> sohan_yasesafa.com@</li>
+              <li className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 text-primary" /> قم، بلوار امام رضا(ع)، نبش شهرک صادقیه</li>
             </ul>
           </div>
         </div>
@@ -41,6 +41,6 @@ export default function Footer() {
           © {new Intl.NumberFormat("fa-IR").format(1404)} یاس صفا — تمامی حقوق محفوظ است.
         </div>
       </div>
-    </footer>
-  );
+    </footer>);
+
 }

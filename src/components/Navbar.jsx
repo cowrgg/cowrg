@@ -8,6 +8,7 @@ import { useCart } from "@/lib/cartContext";
 const navLinks = [
   { label: "خانه", to: "/" },
   { label: "محصولات", to: "/products" },
+  { label: "مقالات", to: "/articles" },
   { label: "درباره ما", to: "/#about" },
   { label: "تماس", to: "/#contact" },
 ];

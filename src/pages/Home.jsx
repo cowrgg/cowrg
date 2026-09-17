@@ -38,8 +38,8 @@ export default function Home() {
               طعمی که از قلب قم<br />
               <span className="text-primary">به خانه شما می‌رسد</span>
             </h1>
-            <p className="mt-5 max-w-md text-base leading-8 text-muted-foreground">
-              سوهان اصیل، شیرینی‌های سنتی و بسته‌بندی‌های هدیه یاس صفا را آنلاین سفارش دهید و در سراسر کشور تحویل بگیرید.
+            <p className="mt-5 max-w-md text-base leading-8 text-muted-foreground">سوهان یک شیرینی سنتی است ولی مجموعه یاس صفا در تلاش است که با بهره‌مندی از خلاقیت و نوآور در تولید این محصول داشته باشد
+
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" className="gap-2">
@@ -58,12 +58,14 @@ export default function Home() {
           </div>
 
           <div className="order-1 md:order-2">
-            <div className="relative mx-auto aspect-square w-full max-w-md overflow-hidden rounded-[2rem] border border-border shadow-xl shadow-primary/10">
-              <Image
-                src="https://media.base44.com/images/public/user_6aaaef99b908cff29f362be6/617defdb5_photo_29632432335_x.jpg"
-                alt="سوهان یاس صفا"
-                className="h-full w-full object-cover"
-                fittingType="fill" />
+            <div className="relative mx-auto aspect-[1247/560] w-full max-w-lg overflow-hidden">
+              <Image src="https://media.base44.com/images/public/user_6aaaef99b908cff29f362be6/617defdb5_photo_29632432335_x.jpg"
+
+              alt="سوهان یاس صفا"
+              className="h-full w-full object-cover [mix-blend-mode:multiply]"
+              fittingType="fill"
+              focalPointX={0.5}
+              focalPointY={0.55} />
               
             </div>
           </div>

@@ -6,6 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import AdminProducts from "@/components/admin/AdminProducts";
 import AdminOrders from "@/components/admin/AdminOrders";
+import AdminArticles from "@/components/admin/AdminArticles";
+import AdminCategoryDescriptions from "@/components/admin/AdminCategoryDescriptions";
 
 const ADMIN_PIN = "yasadmin1404";
 const AUTH_KEY = "yas_admin_auth";
@@ -57,12 +59,16 @@ export default function Admin() {
       </div>
 
       <Tabs defaultValue="orders" className="mt-8">
-        <TabsList className="grid w-full max-w-md grid-cols-2">
+        <TabsList className="grid w-full max-w-2xl grid-cols-4">
           <TabsTrigger value="orders">سفارش‌ها</TabsTrigger>
           <TabsTrigger value="products">محصولات</TabsTrigger>
+          <TabsTrigger value="articles">مقالات</TabsTrigger>
+          <TabsTrigger value="descs">توضیحات دسته</TabsTrigger>
         </TabsList>
         <TabsContent value="orders" className="mt-6"><AdminOrders /></TabsContent>
         <TabsContent value="products" className="mt-6"><AdminProducts /></TabsContent>
+        <TabsContent value="articles" className="mt-6"><AdminArticles /></TabsContent>
+        <TabsContent value="descs" className="mt-6"><AdminCategoryDescriptions /></TabsContent>
       </Tabs>
     </div>
   );

@@ -3,22 +3,35 @@ import { useSearchParams } from "react-router-dom";
 import { Search } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { Input } from "@/components/ui/input";
+import { Image } from "@/components/ui/image";
 import ProductCardItem from "@/components/ProductCard";
 
 const categoryTabs = ["همه", "سوهان", "شیرینی", "هدیه"];
+
+const DEFAULT_CATEGORY_IMAGE =
+  "https://media.base44.com/images/public/6aaaf01300921c790a2a6565/6a698d115_generated_image.png";
 
 export default function Products() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
+  const [descs, setDescs] = useState({});
 
   const activeCategory = searchParams.get("category") || "همه";
+  const catData = descs[activeCategory];
 
   useEffect(() => {
     base44.entities.Product.list("-created_date", 100)
       .then(setProducts)
       .finally(() => setLoading(false));
+    base44.entities.CategoryDescription.list("-created_date", 50).then((list) => {
+      const map = {};
+      list.forEach((d) => {
+        map[d.category] = d;
+      });
+      setDescs(map);
+    });
   }, []);
 
   const filtered = useMemo(() => {
@@ -43,6 +56,26 @@ export default function Products() {
           از میان انواع سوهان و شیرینی‌های سنتی انتخاب کنید و به سبد خود اضافه نمایید.
         </p>
       </div>
+
+      {activeCategory !== "همه" && (
+        <section className="mt-8">
+          <div className="grid gap-4 md:grid-cols-3">
+            <div className="md:col-span-2 min-h-[220px] rounded-2xl border border-border bg-card p-6">
+              <p className="text-sm leading-8 text-muted-foreground">
+                {catData?.description || "در حال آماده‌سازی توضیحات این دسته هستیم."}
+              </p>
+            </div>
+            <div className="min-h-[220px] overflow-hidden border border-border bg-secondary">
+              <Image
+                src={catData?.image_url || DEFAULT_CATEGORY_IMAGE}
+                alt={activeCategory}
+                className="h-full w-full object-cover"
+                fittingType="fill"
+              />
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Controls */}
       <div className="mt-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
